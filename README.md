@@ -17,13 +17,13 @@ samples, guidance on mobile development, and a full API reference. -->
 
 <h1>Flutter Working With API</h1>
 <br>
-<h2>Anggota</h2>
+<h2>Member</h2>
 <table>
     <thead>
         <tr>
             <th>No.</th>
             <th>NIM</th>
-            <th>Nama</th>
+            <th>Name</th>
         </tr>
     </thead>
     <tbody>
