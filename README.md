@@ -17,6 +17,7 @@ samples, guidance on mobile development, and a full API reference. -->
 
 <h1>Flutter Working With API</h1>
 <br>
+<h2>Anggota</h2>
 <table>
     <thead>
         <tr>
@@ -48,3 +49,14 @@ samples, guidance on mobile development, and a full API reference. -->
         </tr>
     </tbody>
 </table>
+<br>
+<h2>Tutorial</h2>
+<ol type="1">
+    <li>Change terminal/cmd directory to htdocs xampp</li>
+    <li>git clone https://github.com/Dika1485/flutterworkingwithapi.git</li>
+    <li>cd flutterworkingwithapi</li>
+    <li>Turn on xampp server</li>
+    <li>Create database from code of database.sql</li>
+    <li>flutter pub get</li>
+    <li>Happy Executing this App^_^</li>
+</ol>
