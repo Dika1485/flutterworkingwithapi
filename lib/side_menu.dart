@@ -1,5 +1,6 @@
 import 'package:flutterworkingwithapi/home_page.dart';
 import 'package:flutterworkingwithapi/list_data.dart';
+import 'package:flutterworkingwithapi/login_page.dart';
 import 'package:flutterworkingwithapi/splash.dart';
 import 'package:flutter/material.dart';
 
@@ -39,12 +40,27 @@ class SideMenu extends StatelessWidget {
         leading: const Icon(Icons.logout),
         title: const Text('Logout'),
         onTap: () {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const SplashScreen(),
-            ),
-          );
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text('Anda Berhasil Logout'),
+                  // content: Text(namauser2),
+                  actions: [
+                    TextButton(
+                      child: const Text('OK'),
+                      onPressed: () {
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (context) => const LoginPage(),
+                          ),
+                          (Route<dynamic> route) => false,
+                        );
+                      },
+                    ),
+                  ],
+                );
+              });
         },
       ),
     ]));

@@ -12,6 +12,7 @@ class TambahData extends StatefulWidget {
 }
 
 class _TambahDataState extends State<TambahData> {
+  final _formKey = GlobalKey<FormState>();
   final namaController = TextEditingController();
   final jurusanController = TextEditingController();
   Future postData(String nama, String jurusan) async {
@@ -35,68 +36,78 @@ class _TambahDataState extends State<TambahData> {
   }
 
   _buatInput(control, String hint) {
-    return TextField(
+    return TextFormField(
       controller: control,
       decoration: InputDecoration(
         hintText: hint,
       ),
+      validator: (String? value) {
+        return (value == null || value.isEmpty)
+            ? "Please enter some text"
+            : null;
+      },
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Tambah Data Mahasiswa'),
-      ),
-      drawer: const SideMenu(),
-      body: Container(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            _buatInput(namaController, 'Masukkan Nama Mahasiswa'),
-            _buatInput(jurusanController, 'Masukkan Nama Jurusan'),
-            ElevatedButton(
-              child: const Text('Tambah Mahasiswa'),
-              onPressed: () {
-                String nama = namaController.text;
-                String jurusan = jurusanController.text;
-                // print(nama);
-                postData(nama, jurusan).then((result) {
-                  //print(result['pesan']);
-                  if (result['pesan'] == 'berhasil') {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          //var namauser2 = namauser;
-                          return AlertDialog(
-                            title: const Text('Data berhasil ditambah'),
-                            // content: const Text('ok'),
-                            actions: [
-                              TextButton(
-                                child: const Text('OK'),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const ListData(),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
-                          );
-                        });
-                  }
-                  setState(() {});
-                });
-              },
-            ),
-          ],
-          // Tugas Kelompok • Lanjutkan untuk delete data, edit data, dan rea
+        appBar: AppBar(
+          title: const Text('Tambah Data Mahasiswa'),
         ),
-      ),
-    );
+        drawer: const SideMenu(),
+        body: Container(
+          padding: const EdgeInsets.all(20),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                _buatInput(namaController, 'Masukkan Nama Mahasiswa'),
+                _buatInput(jurusanController, 'Masukkan Nama Jurusan'),
+                ElevatedButton(
+                  child: const Text('Tambah Mahasiswa'),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      String nama = namaController.text;
+                      String jurusan = jurusanController.text;
+                      // print(nama);
+                      postData(nama, jurusan).then((result) {
+                        //print(result['pesan']);
+                        if (result['pesan'] == 'berhasil') {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                //var namauser2 = namauser;
+                                return AlertDialog(
+                                  title: const Text('Data berhasil ditambah'),
+                                  // content: const Text('ok'),
+                                  actions: [
+                                    TextButton(
+                                      child: const Text('OK'),
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const ListData(),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                );
+                              });
+                        }
+                        setState(() {});
+                      });
+                    }
+                  },
+                ),
+              ],
+              // Tugas Kelompok • Lanjutkan untuk delete data, edit data, dan rea
+            ),
+          ),
+        ));
   }
 }
